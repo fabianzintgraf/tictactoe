@@ -21,9 +21,11 @@
     "react": "^0.13.3"
   },
   "jest": {
-    "scriptPreprocessor": "babel-jest",
+    "scriptPreprocessor": "node_modules/babel-jest",
+    "testFileExtensions": ["spec.js"],
     "unmockedModulePathPatterns": [
       "react"
-    ]
+    ],
+    "verbose": true
   }
 }

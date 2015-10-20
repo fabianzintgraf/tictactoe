@@ -1,14 +1,4 @@
 import React from 'react';
+import Home from './Views/Home.view';
 
-class App extends React.Component {
-
-  render() {
-		return (
-			<div>
-				Hello world!
-			</div>
-		);
-	}
-}
-
-React.render(<App/>, document.body);
+React.render(<Home/>, document.body);
