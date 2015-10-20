@@ -2,18 +2,18 @@
 
 jest.dontMock('../Home.view.js');
 
-var React = require('react/addons');
-var Home = require('../Home.view.js');
-var TestUtils = React.addons.TestUtils;
+const React = require('react/addons');
+const Home = require('../Home.view.js');
+const TestUtils = React.addons.TestUtils;
 
-describe('When Home is rendered', function() {
-  var home = null;
+describe('When Home is rendered', () => {
+  let home = null;
 
-  beforeEach(function() {
+  beforeEach(() => {
     home = TestUtils.renderIntoDocument(<Home/>);
   });
 
-  it('Should contain hello world', function() {
-    expect(React.findDOMNode(home).textContent).toContain('Hello world');
+  it('Should contain hello world', () => {
+    expect(React.findDOMNode(home).textContent).toContain('Welcome to the TicTacToe application');
   });
 });
