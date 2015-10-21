@@ -12,15 +12,22 @@ class GameStore extends EventEmitter {
     appDispatcher.register(this.onAppDispatch.bind(this));
 
     this.currentActivePlayersIndex = undefined;
+    this.isActive = false;
   }
 
   getCurrentActivePlayersIndex() {
     return this.currentActivePlayersIndex;
   }
 
+  isGameActive() {
+    return this.isActive;
+  }
+
   onAppDispatch(data) {
     switch(data.type) {
-    case startGameActionTypes.CREATED:
+    case startGameActionTypes.STARTED:
+      this.currentActivePlayersIndex = 0;
+      this.isActive = true;
       this.emit(CHANGE_EVENT);
       break;
     }

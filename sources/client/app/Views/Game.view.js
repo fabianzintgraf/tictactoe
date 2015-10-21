@@ -3,10 +3,10 @@ import gameStore from '../Stores/Game.store';
 
 class Game extends React.Component {
 
-  constructor() {
+  constructor(props) {
     super();
 
-    this.state = { };
+    this.state = { isActive: props.isActive || false };
   }
 
   componentDidMount() {
@@ -19,12 +19,18 @@ class Game extends React.Component {
 
   updateState() {
     this.setState({
+      isActive: gameStore.isGameActive()
     });
   }
 
   render() {
+    if(!this.state.isActive) {
+      return (<div />);
+    }
+
 		return (
 			<div>
+        <h2>Lets play the game...</h2>
 			</div>
 		);
 	}

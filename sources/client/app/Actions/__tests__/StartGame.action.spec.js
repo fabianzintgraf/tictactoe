@@ -14,7 +14,7 @@ describe('When StartGame is executed', function () {
   });
 
   it('should dispatch the created event', function () {
-    expect(appDispatcher.dispatch).toBeCalledWith(startGameActionTypes.CREATED, {
+    expect(appDispatcher.dispatch).toBeCalledWith(startGameActionTypes.STARTED, {
       player1: player1Name,
       player2: player2Name
     });

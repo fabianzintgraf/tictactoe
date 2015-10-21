@@ -1,12 +1,12 @@
 import appDispatcher from './../AppDispatcher';
 
 const startGameActionTypes = {
-  CREATED: 'StartGameAction.CREATED'
+  STARTED: 'StartGameAction.STARTED'
 };
 
 class StartGameAction {
   execute(player1, player2) {
-    appDispatcher.dispatch(startGameActionTypes.CREATED, {
+    appDispatcher.dispatch(startGameActionTypes.STARTED, {
       player1: player1,
       player2: player2
     });
