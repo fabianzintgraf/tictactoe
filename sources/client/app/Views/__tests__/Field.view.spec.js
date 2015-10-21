@@ -6,17 +6,32 @@ jest.dontMock('../../Stores/fieldTypes');
 const React = require('react/addons');
 const Field = require('../Field.view.js');
 const fieldTypes = require('../../Stores/fieldTypes');
+const playersMovementAction = require('../../Actions/PlayersMovement.action').playersMovementAction;
 const TestUtils = React.addons.TestUtils;
 
 describe('When empty Field is rendered', () => {
   let field = null;
 
   beforeEach(() => {
-    field = TestUtils.renderIntoDocument(<Field currentField={fieldTypes.NONE} />);
+    field = TestUtils.renderIntoDocument(<Field currentField={fieldTypes.NONE} currentFieldIndex={1} currentActivePlayersIndex={1} />);
   });
 
   it('Should have state of not set', () => {
     expect(React.findDOMNode(field).className).toEqual('FieldButton is-notSet');
+  });
+
+  describe('When player1 clicks on a free field', () => {
+    beforeEach(() => {
+      playersMovementAction.execute = jest.genMockFunction();
+    });
+
+    beforeEach(() => {
+      TestUtils.Simulate.click(TestUtils.findRenderedDOMComponentWithTag(field, 'button').getDOMNode());
+    });
+
+    it('Should call the players movement action', () => {
+      expect(playersMovementAction.execute).toBeCalledWith(1, 1);
+    });
   });
 });
 
