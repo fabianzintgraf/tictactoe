@@ -1,5 +1,6 @@
 import React from 'react';
 import gameStore from '../Stores/Game.store';
+import Field from './Field.view';
 
 class Game extends React.Component {
 
@@ -7,7 +8,7 @@ class Game extends React.Component {
     super();
 
     this.state = { isActive: props.isActive || false,
-                  currentActivePlayersIndex: props.currentActivePlayersIndex >= 0 ? props.currentActivePlayersIndex : undefined };
+                   currentActivePlayersIndex: props.currentActivePlayersIndex >= 0 ? props.currentActivePlayersIndex : undefined };
   }
 
   componentDidMount() {
