@@ -8,7 +8,8 @@ class Game extends React.Component {
     super();
 
     this.state = { isActive: props.isActive || false,
-                   currentActivePlayersIndex: props.currentActivePlayersIndex >= 0 ? props.currentActivePlayersIndex : undefined };
+                   currentActivePlayersIndex: props.currentActivePlayersIndex >= 0 ? props.currentActivePlayersIndex : undefined,
+                   fields: props.fields || [] };
   }
 
   componentDidMount() {
@@ -21,7 +22,9 @@ class Game extends React.Component {
 
   updateState() {
     this.setState({
-      isActive: gameStore.isGameActive()
+      isActive: gameStore.isGameActive(),
+      currentActivePlayersIndex: gameStore.getCurrentActivePlayersIndex(),
+      fields: gameStore.getFields()
     });
   }
 
@@ -34,9 +37,18 @@ class Game extends React.Component {
 			<div>
         <h2>Lets play the game...</h2>
         <p>Current player is player { this.state.currentActivePlayersIndex + 1 }!</p>
+        <section className="Fields">
+        { this.state.fields.map(this.renderFields.bind(this)) }
+        </section>
 			</div>
 		);
 	}
+
+  renderFields(field, index) {
+    return (
+      <Field key={index} currentActivePlayersIndex={this.state.currentActivePlayersIndex} currentField={field} currentFieldIndex={index}></Field>
+      );
+  }
 }
 
 Game.propTypes = {

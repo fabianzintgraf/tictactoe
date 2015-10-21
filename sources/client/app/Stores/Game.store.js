@@ -1,6 +1,7 @@
 import { EventEmitter } from 'events';
 import appDispatcher from '../AppDispatcher';
 import { startGameActionTypes } from '../Actions/StartGame.action';
+import fieldTypes from './fieldTypes';
 
 const CHANGE_EVENT = 'change';
 
@@ -13,10 +14,15 @@ class GameStore extends EventEmitter {
 
     this.currentActivePlayersIndex = undefined;
     this.isActive = false;
+    this.fields = Array.from(new Array(9), () => fieldTypes.NONE);
   }
 
   getCurrentActivePlayersIndex() {
     return this.currentActivePlayersIndex;
+  }
+
+  getFields() {
+    return this.fields;
   }
 
   isGameActive() {

@@ -1,7 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
+  <meta charset="utf-8">
+  <style type="text/css">
+
+  .Fields {
+    width: 100%;
+  }
+
+  .FieldButton {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    float:left;
+    background-color: white;
+    outline: none;
+    border: 1px solid #222;
+  }
+
+  .FieldButton:nth-of-type(3n+1) {
+    clear: both;
+  }
+
+  .FieldButton.is-notSet {
+
+  }
+
+  .FieldButton.is-player1,
+  .FieldButton.is-player2 {
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+
+  .FieldButton.is-player1:before {
+    content: 'x';
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 25%;
+    font-size: 100px;
+  }
+  .FieldButton.is-player2:before {
+    content: 'o';
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 25%;
+    font-size: 100px;
+  }
+
+  </style>
 </head>
 <body>
 <script src="bundle.js"></script>
