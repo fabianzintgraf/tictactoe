@@ -19,11 +19,15 @@ describe('When Game is rendered', () => {
 
   describe('When Game is active', () => {
     beforeEach(() => {
-      game = TestUtils.renderIntoDocument(<Game isActive={true} />);
+      game = TestUtils.renderIntoDocument(<Game isActive={true} currentActivePlayersIndex={ 0 } />);
     });
 
     it('Should display the game welcome message', () => {
       expect(React.findDOMNode(game).textContent).toContain('Lets play the game...');
+    });
+
+    it('Should display that the first player is active', () => {
+      expect(TestUtils.findRenderedDOMComponentWithTag(game, 'p').getDOMNode().textContent).toContain('Current player is player 1');
     });
   });
 

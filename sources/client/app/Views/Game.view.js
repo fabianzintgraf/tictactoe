@@ -6,7 +6,8 @@ class Game extends React.Component {
   constructor(props) {
     super();
 
-    this.state = { isActive: props.isActive || false };
+    this.state = { isActive: props.isActive || false,
+                  currentActivePlayersIndex: props.currentActivePlayersIndex >= 0 ? props.currentActivePlayersIndex : undefined };
   }
 
   componentDidMount() {
@@ -31,9 +32,15 @@ class Game extends React.Component {
 		return (
 			<div>
         <h2>Lets play the game...</h2>
+        <p>Current player is player { this.state.currentActivePlayersIndex + 1 }!</p>
 			</div>
 		);
 	}
 }
+
+Game.propTypes = {
+  isActive: React.PropTypes.bool,
+  currentActivePlayersIndex: React.PropTypes.number
+};
 
 export default Game;
