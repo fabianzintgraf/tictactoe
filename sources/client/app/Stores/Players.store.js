@@ -1,26 +1,31 @@
 import { EventEmitter } from 'events';
 import appDispatcher from '../AppDispatcher';
-import { startGameActionTypes } from '../Actions/StartGame.action';
+import { updatePlayerActionTypes } from '../Actions/UpdatePlayer.action';
 
 const CHANGE_EVENT = 'change';
 
-class GameStore extends EventEmitter {
+class PlayersStore extends EventEmitter {
 
   constructor() {
     super();
 
     appDispatcher.register(this.onAppDispatch.bind(this));
 
-    this.currentActivePlayersIndex = undefined;
+    this.players = [];
   }
 
-  getCurrentActivePlayersIndex() {
-    return this.currentActivePlayersIndex;
+  getPlayers() {
+    return this.players;
+  }
+
+  canStartGame() {
+    return this.players && this.players.length == 2 && this.players[0] && this.players[1];
   }
 
   onAppDispatch(data) {
     switch(data.type) {
-    case startGameActionTypes.CREATED:
+    case updatePlayerActionTypes.UPDATED:
+      this.players[data.payload.playerIndex] = data.payload.name;
       this.emit(CHANGE_EVENT);
       break;
     }
@@ -35,4 +40,4 @@ class GameStore extends EventEmitter {
   }
 }
 
-export default new GameStore();
+export default new PlayersStore();
