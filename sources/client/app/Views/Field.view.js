@@ -18,7 +18,8 @@ class Field extends React.Component {
         'FieldButton': true,
         'is-notSet': this.props.currentField === fieldTypes.NONE,
         'is-player1': this.props.currentField === fieldTypes.PLAYER1,
-        'is-player2': this.props.currentField === fieldTypes.PLAYER2
+        'is-player2': this.props.currentField === fieldTypes.PLAYER2,
+        'is-winning': this.props.currentField === fieldTypes.WINNING
       });
 
     return (

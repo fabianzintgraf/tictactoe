@@ -3,7 +3,15 @@ import fieldTypes from '../Stores/fieldTypes';
 class WinningService {
 
 	constructor() {
-		this.winningFieldIndexes = [ [0, 1, 2] ];
+		this.winningCombinationFieldIndexes = [ [0, 1, 2], 
+											    [3, 4, 5],
+												[6, 7, 8],
+												[0, 3, 6],
+												[1, 4, 7],
+												[2, 5, 8],
+												[0, 4, 8],
+												[2, 4, 6]
+											  ];
 	}
 
 	isTypedField(field) {
@@ -12,17 +20,27 @@ class WinningService {
 	}
 
 	findIndexOfWinnerCombination(fields) {
-		const potentialWinners = this.winningFieldIndexes.map(indexes => {
+		const potentialWinners = this.winningCombinationFieldIndexes.map(indexes => {
 			return this.isTypedField(fields[indexes[0]]) && 
 			 	   fields[indexes[0]] === fields[indexes[1]] && 
 			 	   fields[indexes[0]] === fields[indexes[2]];  
 		});
 
-		return potentialWinners.find(x => x === true);
+		return potentialWinners.findIndex(x => x === true);
 	}
 
 	hasThreeInARow(fields) {
-		return this.findIndexOfWinnerCombination(fields) !== undefined;
+		return this.findIndexOfWinnerCombination(fields) >= 0;
+	}
+
+	markWinningFields(fields) {
+		const indexOfWinnerCombination = this.findIndexOfWinnerCombination(fields);
+		if(indexOfWinnerCombination >= 0) {
+			this.winningCombinationFieldIndexes[indexOfWinnerCombination].map(index => {
+				fields[index] = fieldTypes.WINNING;
+			});
+		}
+		return fields;
 	}
 }
 
