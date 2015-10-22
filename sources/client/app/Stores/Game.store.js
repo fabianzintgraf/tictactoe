@@ -2,7 +2,7 @@ import { EventEmitter } from 'events';
 import appDispatcher from '../AppDispatcher';
 import { startGameActionTypes } from '../Actions/StartGame.action';
 import { playersMovementActionTypes } from '../Actions/PlayersMovement.action';
-import fieldTypes from './fieldTypes';
+import { fieldTypes, Field } from '../Field';
 import gameStates from './gameStates';
 import winningService from '../services/Winning.service';
 
@@ -17,7 +17,7 @@ class GameStore extends EventEmitter {
 
     this.currentActivePlayersIndex = undefined;
     this.gameState = gameStates.NotYetStarted;
-    this.fields = Array.from(new Array(9), () => fieldTypes.NONE);
+    this.fields = Array.from(new Array(9), () => new Field(fieldTypes.NONE));
   }
 
   getCurrentActivePlayersIndex() {
@@ -35,7 +35,7 @@ class GameStore extends EventEmitter {
   onAppDispatch(data) {
     switch(data.type) {
     case playersMovementActionTypes.TYPED:
-      this.fields[data.payload.fieldIndex] = data.payload.playerIndex === 0 ? fieldTypes.PLAYER1 : fieldTypes.PLAYER2;
+      this.fields[data.payload.fieldIndex] = data.payload.playerIndex === 0 ? new Field(fieldTypes.PLAYER1) : new Field(fieldTypes.PLAYER2);
       if(winningService.hasThreeInARow(this.fields)) {
         this.fields = winningService.markWinningFields(this.fields);
         this.gameState = gameStates.OverWithWinner;
@@ -49,7 +49,7 @@ class GameStore extends EventEmitter {
     case startGameActionTypes.STARTED:
       this.currentActivePlayersIndex = 0;
       this.gameState = gameStates.Playing;
-      this.fields = Array.from(new Array(9), () => fieldTypes.NONE);
+      this.fields = Array.from(new Array(9), () => new Field(fieldTypes.NONE));
       this.emit(CHANGE_EVENT);
       break;
     }

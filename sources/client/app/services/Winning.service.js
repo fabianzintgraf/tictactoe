@@ -1,4 +1,4 @@
-import fieldTypes from '../Stores/fieldTypes';
+import { fieldTypes } from '../Field';
 
 class WinningService {
 
@@ -15,15 +15,15 @@ class WinningService {
 	}
 
 	isTypedField(field) {
-		return field === fieldTypes.PLAYER1 ||
-			   field === fieldTypes.PLAYER2;
+		return field.type === fieldTypes.PLAYER1 ||
+			   field.type === fieldTypes.PLAYER2;
 	}
 
 	findIndexOfWinnerCombination(fields) {
 		const potentialWinners = this.winningCombinationFieldIndexes.map(indexes => {
 			return this.isTypedField(fields[indexes[0]]) && 
-			 	   fields[indexes[0]] === fields[indexes[1]] && 
-			 	   fields[indexes[0]] === fields[indexes[2]];  
+			 	   fields[indexes[0]].type === fields[indexes[1]].type && 
+			 	   fields[indexes[0]].type === fields[indexes[2]].type;  
 		});
 
 		return potentialWinners.findIndex(x => x === true);
@@ -41,7 +41,7 @@ class WinningService {
 		const indexOfWinnerCombination = this.findIndexOfWinnerCombination(fields);
 		if(indexOfWinnerCombination >= 0) {
 			this.winningCombinationFieldIndexes[indexOfWinnerCombination].map(index => {
-				fields[index] = fieldTypes.WINNING;
+				fields[index].isWinning = true;
 			});
 		}
 		return fields;

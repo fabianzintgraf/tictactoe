@@ -1,9 +1,10 @@
 jest.dontMock('../Winning.service');
-jest.dontMock('../../Stores/fieldTypes');
+jest.dontMock('../../Field');
 
-const fieldTypes = require('../../Stores/fieldTypes');
+const Field = require('../../Field').Field;
+const fieldTypes = require('../../Field').fieldTypes;
 const winningService = require('../Winning.service');
-const emptyFieldSet = Array.from(new Array(9), () => fieldTypes.NONE);
+const emptyFieldSet = Array.from(new Array(9), () => new Field());
 
 describe('When fieldset is empty', () => {
 	let result;
@@ -19,7 +20,7 @@ describe('When fieldset is empty', () => {
 describe('When entire fieldset is set from player 1', () => {
 	let result;
 	beforeEach(() => {
-		result = winningService.isDrawn(Array.from(new Array(9), () => fieldTypes.PLAYER1));
+		result = winningService.isDrawn(Array.from(new Array(9), () => new Field(fieldTypes.PLAYER1)));
 	});
 
 	it('Should be a drawn game', () => {
@@ -30,9 +31,9 @@ describe('When entire fieldset is set from player 1', () => {
 describe('When player 1 has complete upper row', () => {
 	let result;
 	beforeEach(() => {
-		emptyFieldSet[0] = fieldTypes.PLAYER1;
-		emptyFieldSet[1] = fieldTypes.PLAYER1;
-		emptyFieldSet[2] = fieldTypes.PLAYER1;
+		emptyFieldSet[0].type = fieldTypes.PLAYER1;
+		emptyFieldSet[1].type = fieldTypes.PLAYER1;
+		emptyFieldSet[2].type = fieldTypes.PLAYER1;
 		
 		result = winningService.hasThreeInARow(emptyFieldSet);
 	});
@@ -48,15 +49,15 @@ describe('When player 1 has complete upper row', () => {
 		});
 
 		it('Should mark first field as winner', () => {
-			expect(markedFields[0]).toEqual(fieldTypes.WINNING);
+			expect(markedFields[0].isWinning).toBeTruthy();
 		});
 
 		it('Should mark second field as winner', () => {
-			expect(markedFields[1]).toEqual(fieldTypes.WINNING);
+			expect(markedFields[1].isWinning).toBeTruthy();
 		});
 
 		it('Should mark third field as winner', () => {
-			expect(markedFields[2]).toEqual(fieldTypes.WINNING);
+			expect(markedFields[2].isWinning).toBeTruthy();
 		});
 	});
 });
@@ -64,9 +65,9 @@ describe('When player 1 has complete upper row', () => {
 describe('When player 1 has complete middle row', () => {
 	let result;
 	beforeEach(() => {
-		emptyFieldSet[3] = fieldTypes.PLAYER1;
-		emptyFieldSet[4] = fieldTypes.PLAYER1;
-		emptyFieldSet[5] = fieldTypes.PLAYER1;
+		emptyFieldSet[3].type = fieldTypes.PLAYER1;
+		emptyFieldSet[4].type = fieldTypes.PLAYER1;
+		emptyFieldSet[5].type = fieldTypes.PLAYER1;
 		
 		result = winningService.hasThreeInARow(emptyFieldSet);
 	});
@@ -79,9 +80,9 @@ describe('When player 1 has complete middle row', () => {
 describe('When player 1 has complete lower row', () => {
 	let result;
 	beforeEach(() => {
-		emptyFieldSet[5] = fieldTypes.PLAYER1;
-		emptyFieldSet[7] = fieldTypes.PLAYER1;
-		emptyFieldSet[8] = fieldTypes.PLAYER1;
+		emptyFieldSet[5].type = fieldTypes.PLAYER1;
+		emptyFieldSet[7].type = fieldTypes.PLAYER1;
+		emptyFieldSet[8].type = fieldTypes.PLAYER1;
 
 		result = winningService.hasThreeInARow(emptyFieldSet);
 	});
@@ -94,9 +95,9 @@ describe('When player 1 has complete lower row', () => {
 describe('When player 1 has complete left column', () => {
 	let result;
 	beforeEach(() => {
-		emptyFieldSet[0] = fieldTypes.PLAYER1;
-		emptyFieldSet[3] = fieldTypes.PLAYER1;
-		emptyFieldSet[6] = fieldTypes.PLAYER1;
+		emptyFieldSet[0].type = fieldTypes.PLAYER1;
+		emptyFieldSet[3].type = fieldTypes.PLAYER1;
+		emptyFieldSet[6].type = fieldTypes.PLAYER1;
 
 		result = winningService.hasThreeInARow(emptyFieldSet);
 	});
@@ -109,9 +110,9 @@ describe('When player 1 has complete left column', () => {
 describe('When player 1 has complete middle column', () => {
 	let result;
 	beforeEach(() => {
-		emptyFieldSet[1] = fieldTypes.PLAYER1;
-		emptyFieldSet[4] = fieldTypes.PLAYER1;
-		emptyFieldSet[7] = fieldTypes.PLAYER1;
+		emptyFieldSet[1].type = fieldTypes.PLAYER1;
+		emptyFieldSet[4].type = fieldTypes.PLAYER1;
+		emptyFieldSet[7].type = fieldTypes.PLAYER1;
 
 		result = winningService.hasThreeInARow(emptyFieldSet);
 	});
@@ -124,9 +125,9 @@ describe('When player 1 has complete middle column', () => {
 describe('When player 1 has complete right column', () => {
 	let result;
 	beforeEach(() => {
-		emptyFieldSet[2] = fieldTypes.PLAYER1;
-		emptyFieldSet[5] = fieldTypes.PLAYER1;
-		emptyFieldSet[8] = fieldTypes.PLAYER1;
+		emptyFieldSet[2].type = fieldTypes.PLAYER1;
+		emptyFieldSet[5].type = fieldTypes.PLAYER1;
+		emptyFieldSet[8].type = fieldTypes.PLAYER1;
 
 		result = winningService.hasThreeInARow(emptyFieldSet);
 	});
@@ -139,9 +140,9 @@ describe('When player 1 has complete right column', () => {
 describe('When player 1 has first diagonal', () => {
 	let result;
 	beforeEach(() => {
-		emptyFieldSet[0] = fieldTypes.PLAYER1;
-		emptyFieldSet[4] = fieldTypes.PLAYER1;
-		emptyFieldSet[8] = fieldTypes.PLAYER1;
+		emptyFieldSet[0].type = fieldTypes.PLAYER1;
+		emptyFieldSet[4].type = fieldTypes.PLAYER1;
+		emptyFieldSet[8].type = fieldTypes.PLAYER1;
 
 		result = winningService.hasThreeInARow(emptyFieldSet);
 	});
@@ -154,9 +155,9 @@ describe('When player 1 has first diagonal', () => {
 describe('When player 1 has second diagonal', () => {
 	let result;
 	beforeEach(() => {
-		emptyFieldSet[2] = fieldTypes.PLAYER1;
-		emptyFieldSet[4] = fieldTypes.PLAYER1;
-		emptyFieldSet[6] = fieldTypes.PLAYER1;
+		emptyFieldSet[2].type = fieldTypes.PLAYER1;
+		emptyFieldSet[4].type = fieldTypes.PLAYER1;
+		emptyFieldSet[6].type = fieldTypes.PLAYER1;
 
 		result = winningService.hasThreeInARow(emptyFieldSet);
 	});

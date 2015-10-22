@@ -3,15 +3,16 @@
 jest.dontMock('../Game.store');
 jest.dontMock('../../Actions/StartGame.action');
 jest.dontMock('../../Actions/PlayersMovement.action');
-jest.dontMock('../fieldTypes');
+jest.dontMock('../../Field');
 jest.dontMock('../gameStates');
 
 const gameStore = require('../Game.store');
-const fieldTypes = require('../fieldTypes');
+const fieldTypes = require('../../Field').fieldTypes;
+const Field = require('../../Field').Field;
 const gameStates = require('../gameStates');
 const startGameActionTypes = require('../../Actions/StartGame.action').startGameActionTypes;
 const playersMovementActionTypes = require('../../Actions/PlayersMovement.action').playersMovementActionTypes;
-const emptyFieldSet = Array.from(new Array(9), () => fieldTypes.NONE);
+const emptyFieldSet = Array.from(new Array(9), () => new Field(fieldTypes.NONE));
 
 describe('When game store is initialized', function() {
 
@@ -50,7 +51,7 @@ describe('When game store is initialized', function() {
       });
 
       it('Should have set the Tile', function () {
-        expect(gameStore.getFields()[0]).toEqual(fieldTypes.PLAYER1);
+        expect(gameStore.getFields()[0].type).toEqual(fieldTypes.PLAYER1);
       });
     });
   });

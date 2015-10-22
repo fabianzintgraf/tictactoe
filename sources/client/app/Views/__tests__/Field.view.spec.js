@@ -1,11 +1,12 @@
 'use strict';
 
 jest.dontMock('../Field.view');
-jest.dontMock('../../Stores/fieldTypes');
+jest.dontMock('../../Field');
 
 const React = require('react/addons');
-const Field = require('../Field.view.js');
-const fieldTypes = require('../../Stores/fieldTypes');
+const FieldView = require('../Field.view.js');
+const fieldTypes = require('../../Field').fieldTypes;
+const Field = require('../../Field').Field;
 const playersMovementAction = require('../../Actions/PlayersMovement.action').playersMovementAction;
 const TestUtils = React.addons.TestUtils;
 
@@ -13,7 +14,7 @@ describe('When empty Field is rendered', () => {
   let field = null;
 
   beforeEach(() => {
-    field = TestUtils.renderIntoDocument(<Field currentField={fieldTypes.NONE} currentFieldIndex={1} currentActivePlayersIndex={1} />);
+    field = TestUtils.renderIntoDocument(<FieldView currentField={new Field(fieldTypes.NONE)} currentFieldIndex={1} currentActivePlayersIndex={1} />);
   });
 
   it('Should have state of not set', () => {
@@ -43,7 +44,7 @@ describe('When player1 selected Field is rendered', () => {
   let field = null;
 
   beforeEach(() => {
-    field = TestUtils.renderIntoDocument(<Field currentField={fieldTypes.PLAYER1} />);
+    field = TestUtils.renderIntoDocument(<FieldView currentField={new Field(fieldTypes.PLAYER1)} />);
   });
 
   it('Should have state of player1 selected', () => {
@@ -59,7 +60,7 @@ describe('When player2 selected Field is rendered', () => {
   let field = null;
 
   beforeEach(() => {
-    field = TestUtils.renderIntoDocument(<Field currentField={fieldTypes.PLAYER2} />);
+    field = TestUtils.renderIntoDocument(<FieldView currentField={new Field(fieldTypes.PLAYER2)} />);
   });
 
   it('Should have state of player2 selected', () => {
@@ -75,7 +76,7 @@ describe('When a Field is disabled', () => {
   let field = null;
 
   beforeEach(() => {
-    field = TestUtils.renderIntoDocument(<Field disabled={true} />);
+    field = TestUtils.renderIntoDocument(<FieldView currentField={new Field()} disabled={true} />);
   });
 
   it('Should have a disabled field', () => {
