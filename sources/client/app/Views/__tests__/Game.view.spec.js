@@ -33,4 +33,32 @@ describe('When Game is rendered', () => {
     });
   });
 
+  describe('When Game is over and player1 is the winner', () => {
+    beforeEach(() => {
+      game = TestUtils.renderIntoDocument(<Game gameState={gameStates.OverWithWinner} currentActivePlayersIndex={ 0 } />);
+    });
+
+    it('Should display the game welcome message', () => {
+      expect(React.findDOMNode(game).textContent).toContain('The game is over...');
+    });
+
+    it('Should display that the first player is active', () => {
+      expect(TestUtils.findRenderedDOMComponentWithTag(game, 'p').getDOMNode().textContent).toContain('WINNER - player 1 has won!');
+    });
+  });
+
+  describe('When Game is over and there is a drawn', () => {
+    beforeEach(() => {
+      game = TestUtils.renderIntoDocument(<Game gameState={gameStates.OverWithDrawn} currentActivePlayersIndex={ 0 } />);
+    });
+
+    it('Should display the game welcome message', () => {
+      expect(React.findDOMNode(game).textContent).toContain('The game is over...');
+    });
+
+    it('Should display that the first player is active', () => {
+      expect(TestUtils.findRenderedDOMComponentWithTag(game, 'p').getDOMNode().textContent).toContain('DRAWN - There is no winner!');
+    });
+  });
+
 });

@@ -37,18 +37,44 @@ class Game extends React.Component {
 
 		return (
 			<div>
-        <h2>Lets play the game...</h2>
-        <p>Current player is player { this.state.currentActivePlayersIndex + 1 }!</p>
+        { this.renderGameStateHeadline() }
         <section className="Fields">
-        { this.state.fields.map(this.renderFields.bind(this)) }
+          { this.state.fields.map(this.renderFields.bind(this)) }
         </section>
 			</div>
 		);
 	}
 
+  renderGameStateHeadline() {
+    let headline = '';
+    let subHeadline = '';
+
+    if(this.state.gameState === gameStates.Playing) {
+      headline = `Lets play the game...`;
+      subHeadline = `Current player is player ${this.state.currentActivePlayersIndex + 1}!`;
+    } else if(this.state.gameState === gameStates.OverWithDrawn) {
+      headline = `The game is over...`;
+      subHeadline = `DRAWN - There is no winner!`;
+    } else if(this.state.gameState === gameStates.OverWithWinner) {
+      headline = `The game is over...`;
+      subHeadline = `WINNER - player ${this.state.currentActivePlayersIndex + 1} has won!`;
+    }
+
+    return (
+      <section>
+        <h2>{headline}</h2>
+        <p>{subHeadline}</p>
+      </section>
+      );
+  }
+
   renderFields(field, index) {
     return (
-      <Field key={index} currentActivePlayersIndex={this.state.currentActivePlayersIndex} currentField={field} currentFieldIndex={index}></Field>
+      <Field key={index} 
+             currentActivePlayersIndex={this.state.currentActivePlayersIndex} 
+             currentField={field} 
+             currentFieldIndex={index}
+             disabled={this.state.gameState === gameStates.OverWithWinner || this.state.gameState === gameStates.OverWithDrawn}></Field>
       );
   }
 }

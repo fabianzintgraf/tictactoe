@@ -24,7 +24,7 @@ class Field extends React.Component {
 
     return (
       <button className={classNames} 
-              disabled={this.props.currentField !== fieldTypes.NONE}
+              disabled={this.props.currentField !== fieldTypes.NONE || this.props.disabled}
               onClick={this.onFieldClicked.bind(this, this.props.currentActivePlayersIndex, this.props.currentFieldIndex)} />
     );
   }

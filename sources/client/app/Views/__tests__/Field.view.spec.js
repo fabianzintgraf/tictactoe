@@ -70,3 +70,15 @@ describe('When player2 selected Field is rendered', () => {
     expect(React.findDOMNode(field).disabled).toBeTruthy();
   });
 });
+
+describe('When a Field is disabled', () => {
+  let field = null;
+
+  beforeEach(() => {
+    field = TestUtils.renderIntoDocument(<Field disabled={true} />);
+  });
+
+  it('Should have a disabled field', () => {
+    expect(React.findDOMNode(field).disabled).toBeTruthy();
+  });
+});
