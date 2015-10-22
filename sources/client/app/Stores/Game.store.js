@@ -1,6 +1,7 @@
 import { EventEmitter } from 'events';
 import appDispatcher from '../AppDispatcher';
 import { startGameActionTypes } from '../Actions/StartGame.action';
+import { playersMovementActionTypes } from '../Actions/PlayersMovement.action';
 import fieldTypes from './fieldTypes';
 
 const CHANGE_EVENT = 'change';
@@ -31,6 +32,11 @@ class GameStore extends EventEmitter {
 
   onAppDispatch(data) {
     switch(data.type) {
+    case playersMovementActionTypes.TYPED:
+      this.currentActivePlayersIndex = this.currentActivePlayersIndex === 0 ? 1 : 0;
+      this.fields[data.payload.fieldIndex] = data.payload.playerIndex === 0 ? fieldTypes.PLAYER1 : fieldTypes.PLAYER2;
+      this.emit(CHANGE_EVENT);
+      break;
     case startGameActionTypes.STARTED:
       this.currentActivePlayersIndex = 0;
       this.isActive = true;

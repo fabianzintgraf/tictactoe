@@ -10,7 +10,6 @@ class Field extends React.Component {
   }
 
   onFieldClicked(currentActivePlayersIndex, currentFieldIndex) {
-    console.log(currentActivePlayersIndex, currentFieldIndex);
     playersMovementAction.execute(currentActivePlayersIndex, currentFieldIndex);
   }
 
@@ -24,6 +23,7 @@ class Field extends React.Component {
 
     return (
       <button className={classNames} 
+              disabled={this.props.currentField !== fieldTypes.NONE}
               onClick={this.onFieldClicked.bind(this, this.props.currentActivePlayersIndex, this.props.currentFieldIndex)} />
     );
   }

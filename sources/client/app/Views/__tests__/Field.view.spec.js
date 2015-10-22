@@ -20,6 +20,10 @@ describe('When empty Field is rendered', () => {
     expect(React.findDOMNode(field).className).toEqual('FieldButton is-notSet');
   });
 
+  it('Should have enabled the field', () => {
+    expect(React.findDOMNode(field).disabled).toBeFalsy();
+  });
+
   describe('When player1 clicks on a free field', () => {
     beforeEach(() => {
       playersMovementAction.execute = jest.genMockFunction();
@@ -45,6 +49,10 @@ describe('When player1 selected Field is rendered', () => {
   it('Should have state of player1 selected', () => {
     expect(React.findDOMNode(field).className).toEqual('FieldButton is-player1');
   });
+
+  it('Should have disabled the field', () => {
+    expect(React.findDOMNode(field).disabled).toBeTruthy();
+  });
 });
 
 describe('When player2 selected Field is rendered', () => {
@@ -56,5 +64,9 @@ describe('When player2 selected Field is rendered', () => {
 
   it('Should have state of player2 selected', () => {
     expect(React.findDOMNode(field).className).toEqual('FieldButton is-player2');
+  });
+
+  it('Should have disabled the field', () => {
+    expect(React.findDOMNode(field).disabled).toBeTruthy();
   });
 });
