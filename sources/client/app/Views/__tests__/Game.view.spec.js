@@ -1,10 +1,12 @@
 'use strict';
 
 jest.dontMock('../Game.view.js');
+jest.dontMock('../../Stores/gameStates');
 
 const React = require('react/addons');
 const Game = require('../Game.view.js');
 const TestUtils = React.addons.TestUtils;
+const gameStates = require('../../Stores/gameStates');
 
 describe('When Game is rendered', () => {
   let game = null;
@@ -19,7 +21,7 @@ describe('When Game is rendered', () => {
 
   describe('When Game is active', () => {
     beforeEach(() => {
-      game = TestUtils.renderIntoDocument(<Game isActive={true} currentActivePlayersIndex={ 0 } />);
+      game = TestUtils.renderIntoDocument(<Game gameState={gameStates.Playing} currentActivePlayersIndex={ 0 } />);
     });
 
     it('Should display the game welcome message', () => {

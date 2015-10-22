@@ -4,9 +4,11 @@ jest.dontMock('../Game.store');
 jest.dontMock('../../Actions/StartGame.action');
 jest.dontMock('../../Actions/PlayersMovement.action');
 jest.dontMock('../fieldTypes');
+jest.dontMock('../gameStates');
 
 const gameStore = require('../Game.store');
 const fieldTypes = require('../fieldTypes');
+const gameStates = require('../gameStates');
 const startGameActionTypes = require('../../Actions/StartGame.action').startGameActionTypes;
 const playersMovementActionTypes = require('../../Actions/PlayersMovement.action').playersMovementActionTypes;
 const emptyFieldSet = Array.from(new Array(9), () => fieldTypes.NONE);
@@ -15,6 +17,10 @@ describe('When game store is initialized', function() {
 
   it('Should have no active player set', function () {
     expect(gameStore.getCurrentActivePlayersIndex()).not.toBeDefined();
+  });
+
+  it('Should have inactive game', function () {
+    expect(gameStore.getGameState()).toEqual(gameStates.NotYetStarted);
   });
 
   describe('When start game action is called', function() {
@@ -27,7 +33,7 @@ describe('When game store is initialized', function() {
     });
 
     it('Should activate game', function () {
-      expect(gameStore.isGameActive()).toBeTruthy();
+      expect(gameStore.getGameState()).toEqual(gameStates.Playing);
     });
 
     it('Should have an empty field set', function () {
@@ -46,7 +52,6 @@ describe('When game store is initialized', function() {
       it('Should have set the Tile', function () {
         expect(gameStore.getFields()[0]).toEqual(fieldTypes.PLAYER1);
       });
-
     });
   });
 });

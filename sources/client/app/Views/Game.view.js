@@ -1,15 +1,17 @@
 import React from 'react';
 import gameStore from '../Stores/Game.store';
 import Field from './Field.view';
+import gameStates from '../Stores/gameStates';
 
 class Game extends React.Component {
 
   constructor(props) {
     super();
 
-    this.state = { isActive: props.isActive || false,
-                   currentActivePlayersIndex: props.currentActivePlayersIndex >= 0 ? props.currentActivePlayersIndex : undefined,
-                   fields: props.fields || [] };
+    this.state ={ gameState: props.gameState || gameStates.NotYetStarted,
+                  currentActivePlayersIndex: props.currentActivePlayersIndex >= 0 ? props.currentActivePlayersIndex : undefined,
+                  fields: props.fields || [] 
+                };
   }
 
   componentDidMount() {
@@ -22,14 +24,14 @@ class Game extends React.Component {
 
   updateState() {
     this.setState({
-      isActive: gameStore.isGameActive(),
+      gameState: gameStore.getGameState(),
       currentActivePlayersIndex: gameStore.getCurrentActivePlayersIndex(),
       fields: gameStore.getFields()
     });
   }
 
   render() {
-    if(!this.state.isActive) {
+    if(this.state.gameState === gameStates.NotYetStarted) {
       return (<div />);
     }
 
