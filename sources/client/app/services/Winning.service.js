@@ -33,6 +33,10 @@ class WinningService {
 		return this.findIndexOfWinnerCombination(fields) >= 0;
 	}
 
+	isDrawn(fields) {
+		return fields.findIndex(field => !this.isTypedField(field)) < 0;
+	}
+
 	markWinningFields(fields) {
 		const indexOfWinnerCombination = this.findIndexOfWinnerCombination(fields);
 		if(indexOfWinnerCombination >= 0) {

@@ -16,6 +16,17 @@ describe('When fieldset is empty', () => {
 	});
 });
 
+describe('When entire fieldset is set from player 1', () => {
+	let result;
+	beforeEach(() => {
+		result = winningService.isDrawn(Array.from(new Array(9), () => fieldTypes.PLAYER1));
+	});
+
+	it('Should be a drawn game', () => {
+		expect(result).toBeTruthy();
+	});
+});
+
 describe('When player 1 has complete upper row', () => {
 	let result;
 	beforeEach(() => {

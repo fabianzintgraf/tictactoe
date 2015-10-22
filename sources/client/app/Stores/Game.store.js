@@ -39,6 +39,8 @@ class GameStore extends EventEmitter {
       if(winningService.hasThreeInARow(this.fields)) {
         this.fields = winningService.markWinningFields(this.fields);
         this.gameState = gameStates.OverWithWinner;
+      } else if(winningService.isDrawn(this.fields)) {
+        this.gameState = gameStates.OverWithDrawn;
       } else {
         this.currentActivePlayersIndex = this.currentActivePlayersIndex === 0 ? 1 : 0;
       }
@@ -47,6 +49,7 @@ class GameStore extends EventEmitter {
     case startGameActionTypes.STARTED:
       this.currentActivePlayersIndex = 0;
       this.gameState = gameStates.Playing;
+      this.fields = Array.from(new Array(9), () => fieldTypes.NONE);
       this.emit(CHANGE_EVENT);
       break;
     }
