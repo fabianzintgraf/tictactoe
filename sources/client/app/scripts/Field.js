@@ -5,13 +5,13 @@ const fieldTypes = {
 };
 
 class Field {
-	constructor(type) {
-		this.type = type ? type : fieldTypes.NONE;
-		this.isWinning = false;
-	}
+  constructor(type) {
+    this.type = type ? type : fieldTypes.NONE;
+    this.isWinning = false;
+  }
 }
 
 export default {
-	Field: Field,
-	fieldTypes: fieldTypes
+  Field: Field,
+  fieldTypes: fieldTypes
 };

@@ -8,10 +8,11 @@ class Game extends React.Component {
   constructor(props) {
     super();
 
-    this.state ={ gameState: props.gameState || gameStates.NotYetStarted,
-                  currentActivePlayersIndex: props.currentActivePlayersIndex >= 0 ? props.currentActivePlayersIndex : undefined,
-                  fields: props.fields || [] 
-                };
+    this.state = {
+      gameState: props.gameState || gameStates.NotYetStarted,
+      currentActivePlayersIndex: props.currentActivePlayersIndex >= 0 ? props.currentActivePlayersIndex : undefined,
+      fields: props.fields || []
+    };
   }
 
   componentDidMount() {
@@ -31,31 +32,31 @@ class Game extends React.Component {
   }
 
   render() {
-    if(this.state.gameState === gameStates.NotYetStarted) {
+    if (this.state.gameState === gameStates.NotYetStarted) {
       return (<div />);
     }
 
-		return (
-			<div>
+    return (
+      <div>
         { this.renderGameStateHeadline() }
         <section className="Fields">
           { this.state.fields.map(this.renderFields.bind(this)) }
         </section>
-			</div>
-		);
-	}
+      </div>
+    );
+  }
 
   renderGameStateHeadline() {
     let headline = '';
     let subHeadline = '';
 
-    if(this.state.gameState === gameStates.Playing) {
+    if (this.state.gameState === gameStates.Playing) {
       headline = `Lets play the game...`;
       subHeadline = `Current player is player ${this.state.currentActivePlayersIndex + 1}!`;
-    } else if(this.state.gameState === gameStates.OverWithDrawn) {
+    } else if (this.state.gameState === gameStates.OverWithDrawn) {
       headline = `The game is over...`;
       subHeadline = `DRAWN - There is no winner!`;
-    } else if(this.state.gameState === gameStates.OverWithWinner) {
+    } else if (this.state.gameState === gameStates.OverWithWinner) {
       headline = `The game is over...`;
       subHeadline = `WINNER - player ${this.state.currentActivePlayersIndex + 1} has won!`;
     }
@@ -70,9 +71,9 @@ class Game extends React.Component {
 
   renderFields(field, index) {
     return (
-      <Field key={index} 
-             currentActivePlayersIndex={this.state.currentActivePlayersIndex} 
-             currentField={field} 
+      <Field key={index}
+             currentActivePlayersIndex={this.state.currentActivePlayersIndex}
+             currentField={field}
              currentFieldIndex={index}
              disabled={this.state.gameState === gameStates.OverWithWinner || this.state.gameState === gameStates.OverWithDrawn}></Field>
       );

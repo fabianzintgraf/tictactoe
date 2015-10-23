@@ -47,11 +47,10 @@ class Players extends React.Component {
   }
 
   renderPlayer(index) {
-    const indexName = `players_${index}`;
     return (
-      <p key={indexName}>
-        <label htmlFor={indexName}>Name of player {index+1}: </label>
-        <input onChange={this.onPlayerUpdate.bind(this, index)} type="text" id={indexName} />
+      <p key={index}>
+        <label htmlFor={index}>Name of player {index + 1}: </label>
+        <input onChange={this.onPlayerUpdate.bind(this, index)} type="text" id={index} />
       </p>
       );
   }

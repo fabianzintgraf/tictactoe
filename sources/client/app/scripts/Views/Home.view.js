@@ -9,14 +9,14 @@ class Home extends React.Component {
   }
 
   render() {
-		return (
-			<div>
-				<h1>Welcome to the TicTacToe application</h1>
+    return (
+      <div>
+        <h1>Welcome to the TicTacToe application</h1>
         <Players />
         <Game />
-			</div>
-		);
-	}
+      </div>
+    );
+  }
 }
 
 export default Home;

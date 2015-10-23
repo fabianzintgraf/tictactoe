@@ -5,7 +5,6 @@ import { playersMovementActionTypes } from '../Actions/PlayersMovement.action';
 import { fieldTypes, Field } from '../Field';
 import gameStates from './gameStates';
 import winningService from '../services/Winning.service';
-
 const CHANGE_EVENT = 'change';
 
 class GameStore extends EventEmitter {
@@ -33,13 +32,13 @@ class GameStore extends EventEmitter {
   }
 
   onAppDispatch(data) {
-    switch(data.type) {
+    switch (data.type) {
     case playersMovementActionTypes.TYPED:
       this.fields[data.payload.fieldIndex] = data.payload.playerIndex === 0 ? new Field(fieldTypes.PLAYER1) : new Field(fieldTypes.PLAYER2);
-      if(winningService.hasThreeInARow(this.fields)) {
+      if (winningService.hasThreeInARow(this.fields)) {
         this.fields = winningService.markWinningFields(this.fields);
         this.gameState = gameStates.OverWithWinner;
-      } else if(winningService.isDrawn(this.fields)) {
+      } else if (winningService.isDrawn(this.fields)) {
         this.gameState = gameStates.OverWithDrawn;
       } else {
         this.currentActivePlayersIndex = this.currentActivePlayersIndex === 0 ? 1 : 0;
@@ -51,6 +50,8 @@ class GameStore extends EventEmitter {
       this.gameState = gameStates.Playing;
       this.fields = Array.from(new Array(9), () => new Field(fieldTypes.NONE));
       this.emit(CHANGE_EVENT);
+      break;
+    default:
       break;
     }
   }
