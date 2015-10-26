@@ -2,53 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <style type="text/css">
-
-  .Fields {
-    width: 100%;
-  }
-
-  .FieldButton {
-    position: relative;
-    width: 150px;
-    height: 150px;
-    float:left;
-    background-color: white;
-    outline: none;
-    border: 1px solid #222;
-  }
-
-  .FieldButton:nth-of-type(3n+1) {
-    clear: both;
-  }
-
-  .FieldButton.is-winning {
-    background-color: red;
-  }
-
-  .FieldButton.is-player1,
-  .FieldButton.is-player2 {
-    cursor: not-allowed;
-  }
-
-  .FieldButton.is-player1:before {
-    content: 'x';
-    display: inline-block;
-    position: absolute;
-    top: 0;
-    left: 25%;
-    font-size: 100px;
-  }
-  .FieldButton.is-player2:before {
-    content: 'o';
-    display: inline-block;
-    position: absolute;
-    top: 0;
-    left: 25%;
-    font-size: 100px;
-  }
-
-  </style>
+  <link rel="stylesheet" type="text/css" href="/styles/main.css">
 </head>
 <body>
 <script src="/scripts/app.js"></script>

@@ -1,0 +1,40 @@
+.FieldButton {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  float:left;
+  background-color: white;
+  outline: none;
+  border: 1px solid #222;
+
+  &:nth-of-type(3n+1) {
+    clear: both;
+  }
+
+  &.is-winning {
+    background-color: red;
+  }
+
+  &.is-player1,
+  &.is-player2 {
+    cursor: not-allowed;
+  }
+
+  &.is-player1:before {
+    content: 'x';
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 25%;
+    font-size: 100px;
+  }
+
+  &.is-player2:before {
+    content: 'o';
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 25%;
+    font-size: 100px;
+  }
+}
