@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
+var gulpJest = require('./gulp-jest');
 var sync = $.sync(gulp).sync;
 var del = require('del');
 var browserify = require('browserify');
@@ -56,6 +57,22 @@ gulp.task('serve', function () {
         return next();
       }
     }));
+});
+
+gulp.task('jest', function () {
+  var nodeModules = path.resolve('./node_modules');
+  var options = {
+    testDirectoryName: 'scripts',
+    testFileExtensions: ['spec.js'],
+    scriptPreprocessor: nodeModules + '/babel-jest',
+    unmockedModulePathPatterns: [
+      'react',
+      'classnames'
+    ],
+    verbose: true
+  };
+
+  return gulp.src('app').pipe(gulpJest(options));
 });
 
 gulp.task('lint', function () {
